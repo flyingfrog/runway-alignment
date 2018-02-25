@@ -1,16 +1,20 @@
 function click_state(state) {
 	adjust_state_list(state);
 	stateFill ={}
+	labelFill = {}
 	for (i in states) {
 		if (stateList.includes(i)) {
 			stateFill[i] = {fill:'yellow'};
+			labelFill[i] = {fill:'yellow'};
 		}
 		else {
 			stateFill[i] = {fill:'#333'};
+			labelFill[i] = {fill:'#333'};
 		}
 	}
 	console.log(stateFill);
 	$("#map").usmap('stateSpecificStyles',stateFill);
+	$("#map").usmap('stateSpecificLabelBackingStyles',labelFill);
 }
 
 function hover_state(state) {
@@ -130,13 +134,14 @@ $(document).ready(function() {
 		click_state(this.id);
 	});
 	$("#last_updated").html(updated_time);
-	update_legend();
+
 	
 	var svg = d3.select("#chart");
-	var width = +svg.attr("width"), height = +svg.attr("height");
+	var width = +svg.attr("width"), height = +svg.attr("height")
 	svg.attr("fill","red");
-	var g = svg.append("g").attr("transform","translate(" + width / 2 + "," + height / 2 + ")")
+	svg.append("g").attr("transform","translate(" + width / 2 + "," + height / 2 + ")")
 		.attr("id","arc_base");
+	update_legend();
 });
 
 

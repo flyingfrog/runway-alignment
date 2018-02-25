@@ -51,7 +51,7 @@
   var WIDTH = 930,
       HEIGHT = 630,
       LABELS_WIDTH = 70,
-      MUTABLE_PROPERTIES = ['stateStyles','stateHoverStyles','stateSpecificStyles','stateSpecificHoverStyles'];
+      MUTABLE_PROPERTIES = ['stateStyles','stateHoverStyles','stateSpecificStyles','stateSpecificHoverStyles','stateSpecificLabelBackingStyles'];
   
   // Default options
   var defaults = {
@@ -351,11 +351,7 @@
         } else {
           stateAttr = backingAttr;
         }
-		
-		if(this.options.stateSpecificStyles[state]) {
-			$.extend(stateAttr, this.options.stateSpecificStyles[state]);
-        }
-		
+
         
         // add the backing
         this.labelShapes[state] = R.rect(x, y, shapeWidth, shapeHeight, shapeRadius).attr(stateAttr);
@@ -637,11 +633,6 @@
 			  labelShape = this.labelShapes[abbreviation];
               for(style in this.options[property][abbreviation]) {
                 stateShape.attr(style,this.options[property][abbreviation][style]);
-				if(labelShape) {
-					labelShape.attr(style,this.options[property][abbreviation][style]);
-					console.log("a");
-				}
-					
 			  }
             }
             break;
