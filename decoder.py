@@ -1,3 +1,7 @@
+#download from: https://www.faa.gov/airports/airport_safety/airportdata_5010/
+#Leave the form set at ALL <everything> and Submit
+#Choose the Airport Runways Data link
+
 import sys
 import re
 import json
@@ -5,7 +9,8 @@ import os
 import datetime
 
 if len(sys.argv) != 3:
-	raise ValueError("Expected arguments: <FAA runway file> <JS target>")
+	raise ValueError("Expected arguments: <FAA runway file> <JavaScript decoded file>")
+
 runway_filename = sys.argv[1]
 runway_file = open(runway_filename)
 js_target_filename = sys.argv[2]
@@ -14,7 +19,7 @@ js_target_file = open(js_target_filename, 'w')
 #check header to ensure it hasn't changed
 header_line = runway_file.readline().strip()
 if '"SiteNumber"	"State"	"RunwayID"' not in header_line:
-	raise ValueError('File format has changed')
+	raise ValueError('Error: Incorrect file or file format has changed')
 
 states = {}
 runway_pattern = re.compile('\d+\.\d*\*\w\t(\w\w)\t\'(\d\d)\D?/(\d\d)\D?')
