@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Runway Alignment Viewer</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="js/raphael.js"></script>
+	<script src="js/jquery.usmap.js"></script>
+	<script src="state_runways.js" type="text/javascript"></script>
+	<script src="runways.js" type="text/javascript"></script>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<style>
+		body {
+			text-align:center
+		}
+		#map_holder > div {
+			padding-right: 5px;
+		}
+		#instructions {
+			text-align: left;
+			width: 500px
+		}
+		#territories div, #selectors div {
+			border: 2px black;
+			border-style:solid;
+			border-radius:4px;
+			margin-top:3px;
+			text-align:center;
+			width:35px;
+			font-size:10pt;
+			background-color:black;
+			color: white;
+			font-family:sans-serif;
+			cursor:pointer;
+		}
+		#selectors div {
+			width: 50px;
+			font-size:12pt;
+			background-color:blue;
+			border: 2px blue;
+		}
+		#selectors {
+			padding-left:5px
+		}
+		#statelist {
+			width:300px;
+		}
+	</style>
+</head>
+<body>
+<div style="display:flex;height:400px">
+	<div id="instructions"><h3>Runway Alignment Viewer</h3>
+	This tool will help you visualize the alignment of runways across the US.<br/>
+	Hover over any state to view the makeup of runways in that state.<br/>
+	Click on one or more states to view the combined alignment of all runways in those states.<br/>
+	Runway data last updated: <span id="last_updated"></span>
+	</div>
+	<div style="display:flex; align-items:center" id="map_holder">
+		<div id="map" style="width:500px; height:350px"></div>
+		<!--<div id="territories">
+			<div id="AS" title="American Samoa">AS</div>
+			<div id="CQ" title="Commonwealth of the Northern Mariana Islands">CQ</div>
+			<div id="GU" title="Guam">GU</div>
+			<div id="MQ" title="Midway Island">MQ</div>
+			<div id="PR" title="Puerto Rico">PR</div>
+			<div id="VI" title="Virgin Islands of the United States">VI</div>
+			<div id="WQ" title="Wake Island">WQ</div>
+		</div>-->
+		<div id="selectors">
+			<div id="ALL">ALL</div>
+			<div id="NONE">NONE</div>
+		</div>
+		<div id="statelist"></div>
+	</div>
+</div>
+
+<svg id="chart" width="500" height="500" ></svg>
+</body>
+</html>
