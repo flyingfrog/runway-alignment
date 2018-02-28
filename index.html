@@ -11,10 +11,27 @@
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<style>
 		body {
-			text-align:center
+			text-align:center;
+			margin:0;
+		}
+		#content_row {
+			margin:10px auto 0px auto;
+		}
+		#map_holder {
+			border: 2px blue;
+			border-style:solid;
+			border-radius:10px;
+			padding:5px;
 		}
 		#map_holder > div {
 			padding-right: 5px;
+		}
+		#chart {
+			margin:0px 10px;
+			border: 2px green;
+			border-style:solid;
+			border-radius:10px;
+			padding:5px;
 		}
 		#instructions {
 			text-align: left;
@@ -43,20 +60,29 @@
 			padding-left:5px
 		}
 		#statelist {
-			width:300px;
 		}
 	</style>
 </head>
 <body>
-<div style="display:flex;height:400px">
-	<div id="instructions"><h3>Runway Alignment Viewer</h3>
+<div style="display:flex; width:1200px" id="content_row">
+	<div style="display:flex; align-items:center; height:500px" id="map_holder">
+		<div id="map" style="width:500px; height:350px"></div>
+		<div id="selectors">
+			<div id="ALL">ALL</div>
+			<div id="NONE">NONE</div>
+		</div>
+	</div>
+	<svg id="chart" width="500" height="500"></svg>
+</div>
+<div id="statelist"></div>
+<div id="instructions"><h3>Runway Alignment Viewer</h3>
 	This tool will help you visualize the alignment of runways across the US.<br/>
 	Hover over any state to view the makeup of runways in that state.<br/>
 	Click on one or more states to view the combined alignment of all runways in those states.<br/>
 	Runway data last updated: <span id="last_updated"></span>
 	</div>
-	<div style="display:flex; align-items:center" id="map_holder">
-		<div id="map" style="width:500px; height:350px"></div>
+	
+		
 		<!--<div id="territories">
 			<div id="AS" title="American Samoa">AS</div>
 			<div id="CQ" title="Commonwealth of the Northern Mariana Islands">CQ</div>
@@ -66,14 +92,7 @@
 			<div id="VI" title="Virgin Islands of the United States">VI</div>
 			<div id="WQ" title="Wake Island">WQ</div>
 		</div>-->
-		<div id="selectors">
-			<div id="ALL">ALL</div>
-			<div id="NONE">NONE</div>
-		</div>
-		<div id="statelist"></div>
-	</div>
-</div>
 
-<svg id="chart" width="500" height="500" ></svg>
+
 </body>
 </html>
