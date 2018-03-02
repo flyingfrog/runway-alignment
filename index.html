@@ -16,15 +16,24 @@
 		}
 		#content_row {
 			margin:10px auto 0px auto;
+			display:flex; 
+			width:1200px
 		}
 		#map_holder {
 			border: 2px blue;
 			border-style:solid;
 			border-radius:10px;
 			padding:5px;
+			display:flex; 
+			align-items:center; 
+			height:500px
 		}
 		#map_holder > div {
 			padding-right: 5px;
+		}
+		#map {
+			width:500px;
+			height:350px
 		}
 		#chart {
 			margin:0px 10px;
@@ -64,9 +73,9 @@
 	</style>
 </head>
 <body>
-<div style="display:flex; width:1200px" id="content_row">
-	<div style="display:flex; align-items:center; height:500px" id="map_holder">
-		<div id="map" style="width:500px; height:350px"></div>
+<div id="content_row">
+	<div id="map_holder">
+		<div id="map"></div>
 		<div id="selectors">
 			<div id="ALL">ALL</div>
 			<div id="NONE">NONE</div>
