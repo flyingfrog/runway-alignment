@@ -616,6 +616,7 @@
       for(i;i<c;i++)
       {
         var property = properties[i];
+		console.log(property);
         switch(property)
         {
           case "stateStyles":
@@ -630,11 +631,21 @@
             for(var abbreviation in this.options[property])
             {
               stateShape = this.stateShapes[abbreviation];
-			  labelShape = this.labelShapes[abbreviation];
               for(style in this.options[property][abbreviation]) {
                 stateShape.attr(style,this.options[property][abbreviation][style]);
 			  }
             }
+		 case "stateSpecificLabelBackingStyles":
+		     for(var abbreviation in this.options[property])
+            {
+  			  labelShape = this.labelShapes[abbreviation];
+			  if (labelShape == undefined) continue;
+              for(style in this.options[property][abbreviation]) {
+				  console.log(labelShape);
+                labelShape.attr(style,this.options[property][abbreviation][style]);
+			  }
+            }
+
             break;
         }
       }
