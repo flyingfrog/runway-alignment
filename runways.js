@@ -4,12 +4,12 @@ function click_state(state) {
 	labelFill = {}
 	for (i in states) {
 		if (stateList.includes(i)) {
-			stateFill[i] = {fill:'yellow'};
-			labelFill[i] = {fill:'yellow'};
+			stateFill[i] = {fill:'#009'};
+			labelFill[i] = {fill:'#009'};
 		}
 		else {
-			stateFill[i] = {fill:'#333'};
-			labelFill[i] = {fill:'#333'};
+			stateFill[i] = {fill:'#222'};
+			labelFill[i] = {fill:'#222'};
 		}
 	}
 	$("#map").usmap('stateSpecificStyles',stateFill);
@@ -100,9 +100,9 @@ function draw_chart() {
 		.endAngle(function(d) {return ((parseInt(d['key'])+1)*10-5) * Math.PI / 180})
 		.padAngle(1 * Math.PI/180))
 		.attr("data",function(d) {return d['key'] + ':' + d['value']});
-	var range_circles = ring_base.selectAll("circle").data([max_runways / 2, max_runways])
+	var range_circles = ring_base.selectAll("circle").data([Math.trunc(max_runways/2), max_runways])
 	.attr("r",function(d) {return dimension(d);});
-	var range_labels = ring_base.selectAll("text").data([max_runways / 2, max_runways])
+	var range_labels = ring_base.selectAll("text").data([Math.trunc(max_runways/2), max_runways])
 	.attr("x",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
 	.attr("y",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
 	.text(function(d) {return d;});
@@ -122,7 +122,7 @@ function draw_chart() {
 		.attr({"font-weight":"bold"})});
 	arc.on("mouseout", function(d,i){d3.select("#mouseover_box").remove()});
 
-	range_circles.enter().append("circle").data([max_runways / 2, max_runways])
+	range_circles.enter().append("circle")
 	.attr("cx",0)
 	.attr("cy",0)
 	.attr("r",function(d) {return dimension(d);})
@@ -139,8 +139,7 @@ function draw_chart() {
 	.attr("y",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
 	.text(function(d) {return d;});
 	
-	
-	
+	range_circles.exit().remove();
 }
 
 runwayValues = [];
@@ -154,12 +153,6 @@ $(document).ready(function() {
 		click:function(event,data){click_state(data.name);}
 	});
   
-	$("#territories > div").click(function() {
-		click_state(this.id);
-	});	
-	$("#territories > div").hover(function() {
-		hover_state(this.id);
-	});
 	$("#selectors > div").click(function() {
 		click_state(this.id);
 	});

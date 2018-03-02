@@ -16,9 +16,14 @@
 			font-family:sans-serif;
 		}
 		#content_row {
-			margin:10px auto 0px auto;
+			margin:0px 100px 0px;
 			display:flex; 
 			width:1200px
+		}
+		#header {
+			height:5px;
+			margin-top:80px;
+			font-size:11pt	
 		}
 		#map_holder {
 			border: 2px blue;
@@ -27,14 +32,16 @@
 			padding:5px;
 			display:flex; 
 			align-items:center; 
-			height:500px
+			height:500px;
+			margin-top:15px
 		}
 		#map_holder > div {
-			padding-right: 5px;
+			padding: 5px;
 		}
 		#map {
 			width:500px;
-			height:350px
+			height:350px;
+
 		}
 		#chart {
 			margin:0px 10px;
@@ -45,7 +52,8 @@
 		}
 		#instructions {
 			text-align: left;
-			width: 1000px
+			width: 1000px;
+			padding-left: 100px;
 		}
 		#territories div, #selectors div {
 			border: 2px black;
@@ -70,21 +78,16 @@
 			padding-left:5px
 		}
 		#statelist {
-		}
+			font-size:11pt;
+			height:100px;
+			width:500px;
+			display:flex;
+			align-items: flex-end;
+			padding-left:25px
+			}
 	</style>
 </head>
 <body>
-<div id="content_row">
-	<div id="map_holder">
-		<div id="map"></div>
-		<div id="selectors">
-			<div id="ALL">ALL</div>
-			<div id="NONE">NONE</div>
-		</div>
-	</div>
-	<svg id="chart" width="500" height="500"></svg>
-</div>
-<div id="statelist"></div>
 <div id="instructions"><h3>Runway Alignment Viewer</h3>
 	Hover over any state to see the total alignment of every runway in that state.<br/>
 	Click on one or more states to view the combined alignment of the runways in the states you select.<br/>
@@ -92,7 +95,25 @@
 	The data presented here come from a database offered by <a href ="https://www.faa.gov/airports/airport_safety/airportdata_5010/">the FAA</a>.<br/>
 	Hover over any state to view the makeup of runways in that state.<br/>
 	Runway data last updated: <span id="last_updated"></span>
+</div>
+<div id="content_row">
+	<div>
+	<div id="header">Click or hover over any state to begin.</div>
+	<div id="map_holder">
+		<div id="map"></div>
+		<div id="selectors">
+			<div id="ALL">ALL</div>
+			<div id="NONE">NONE</div>
+		</div>
 	</div>
+	</div>
+	<div>
+		<div id="statelist"></div>
+		<svg id="chart" width="500" height="500"></svg>
+	</div>
+</div>
+
+
 	
 		
 		<!--<div id="territories">
