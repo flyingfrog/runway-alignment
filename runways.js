@@ -12,7 +12,6 @@ function click_state(state) {
 			labelFill[i] = {fill:'#333'};
 		}
 	}
-	console.log(stateFill);
 	$("#map").usmap('stateSpecificStyles',stateFill);
 	$("#map").usmap('stateSpecificLabelBackingStyles',labelFill);
 }
@@ -86,16 +85,28 @@ function update_legend() {
 
 function draw_chart() {
 	var max_runways = d3.max(d3.entries(runwayValues), function(d) {return d['value']});
-	var dimension = d3.scale.linear().range([0,+d3.select("#chart").attr("width")/2]);
+	if(max_runways == undefined) {max_runways = 0;}
+	var chart_width = d3.select("#chart").attr("width");
+	var dimension = d3.scale.linear().range([0,+chart_width/2]);
 	dimension.domain([0,max_runways]);
 	
 	var g = d3.select("#arc_base");
+	var ring_base = d3.select("#ring_base");
+	
+
 	var arc = g.selectAll("path").data(d3.entries(runwayValues))
 	.attr("d",d3.svg.arc().innerRadius(0).outerRadius(function (d) {return dimension(d['value'])})
 		.startAngle(function(d) {return (d['key']*10 - 5) * Math.PI / 180})
 		.endAngle(function(d) {return ((parseInt(d['key'])+1)*10-5) * Math.PI / 180})
 		.padAngle(1 * Math.PI/180))
 		.attr("data",function(d) {return d['key'] + ':' + d['value']});
+	var range_circles = ring_base.selectAll("circle").data([max_runways / 2, max_runways])
+	.attr("r",function(d) {return dimension(d);});
+	var range_labels = ring_base.selectAll("text").data([max_runways / 2, max_runways])
+	.attr("x",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
+	.attr("y",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
+	.text(function(d) {return d;});
+
 	
 	arc.enter().append("path")
 	.attr("d",d3.svg.arc().innerRadius(0).outerRadius(function (d) {return dimension(d['value'])})
@@ -111,6 +122,25 @@ function draw_chart() {
 		.attr({"font-weight":"bold"})});
 	arc.on("mouseout", function(d,i){d3.select("#mouseover_box").remove()});
 
+	range_circles.enter().append("circle").data([max_runways / 2, max_runways])
+	.attr("cx",0)
+	.attr("cy",0)
+	.attr("r",function(d) {return dimension(d);})
+	.style("fill","none")
+	.attr("stroke","black");
+	range_circles.exit().remove();
+	
+	range_labels.enter().append("text")
+	.attr("alignment-baseline","text-after-edge",)
+	.attr("fill","black")
+	.attr("font-weight","bold")
+	.attr("text-anchor","end")
+	.attr("x",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
+	.attr("y",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
+	.text(function(d) {return d;});
+	
+	
+	
 }
 
 runwayValues = [];
@@ -141,6 +171,8 @@ $(document).ready(function() {
 	svg.attr("fill","red");
 	svg.append("g").attr("transform","translate(" + width / 2 + "," + height / 2 + ")")
 		.attr("id","arc_base");
+	svg.append("g").attr("transform","translate(" + width / 2 + "," + height / 2 + ")")
+		.attr("id","ring_base");
 	update_legend();
 });
 

@@ -13,6 +13,7 @@
 		body {
 			text-align:center;
 			margin:0;
+			font-family:sans-serif;
 		}
 		#content_row {
 			margin:10px auto 0px auto;
@@ -44,7 +45,7 @@
 		}
 		#instructions {
 			text-align: left;
-			width: 500px
+			width: 1000px
 		}
 		#territories div, #selectors div {
 			border: 2px black;
@@ -85,9 +86,11 @@
 </div>
 <div id="statelist"></div>
 <div id="instructions"><h3>Runway Alignment Viewer</h3>
-	This tool will help you visualize the alignment of runways across the US.<br/>
+	Hover over any state to see the total alignment of every runway in that state.<br/>
+	Click on one or more states to view the combined alignment of the runways in the states you select.<br/>
+	You can also hover over any of the lines on the chart to see exactly how many runways are assigned that number.<br/>
+	The data presented here come from a database offered by <a href ="https://www.faa.gov/airports/airport_safety/airportdata_5010/">the FAA</a>.<br/>
 	Hover over any state to view the makeup of runways in that state.<br/>
-	Click on one or more states to view the combined alignment of all runways in those states.<br/>
 	Runway data last updated: <span id="last_updated"></span>
 	</div>
 	
