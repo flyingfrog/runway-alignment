@@ -4,12 +4,12 @@ function click_state(state) {
 	labelFill = {}
 	for (i in states) {
 		if (stateList.includes(i)) {
-			stateFill[i] = {fill:'#009'};
-			labelFill[i] = {fill:'#009'};
+			stateFill[i] = {fill:"blue"};
+			labelFill[i] = {fill:"blue"};
 		}
 		else {
-			stateFill[i] = {fill:'#222'};
-			labelFill[i] = {fill:'#222'};
+			stateFill[i] = {fill:'#333'};
+			labelFill[i] = {fill:'#333'};
 		}
 	}
 	$("#map").usmap('stateSpecificStyles',stateFill);
@@ -148,7 +148,8 @@ curr_state = '';
 
 $(document).ready(function() {
 	$('#map').usmap({
-		stateHoverStyles:{fill:'green'},
+		stateHoverStyles:{fill:'#66f'},
+		stateStyles: {stroke:'#999'},
 		mouseover:function(event,data){hover_state(data.name);},
 		click:function(event,data){click_state(data.name);}
 	});
