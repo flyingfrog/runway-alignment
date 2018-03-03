@@ -1,8 +1,13 @@
+function update_chart() {
+	update_legend();
+	draw_chart();
+}
+
 function click_state(state) {
 	adjust_state_list(state);
 	stateFill ={}
 	labelFill = {}
-	for (i in states) {
+	for (var i in states) {
 		if (stateList.includes(i)) {
 			stateFill[i] = {fill:"blue"};
 			labelFill[i] = {fill:"blue"};
@@ -22,9 +27,8 @@ function hover_state(state) {
 
 	curr_state = state;
 	runwayValues = states[state];
-	update_legend();	
+	update_chart();	
 }
-
 
 function adjust_state_list (state) {
 	if (state == 'NONE') {
@@ -52,11 +56,12 @@ function adjust_state_list (state) {
 		stateList.sort();
 		runwayValues = stateList.reduce(function(acc, curr) {
 				for(var i in states[curr]) {
-					acc[i] += states[curr][i]};
+					acc[i] += states[curr][i]
+				};
 				return acc;
 		}, new Array(37).fill(0));
 	}
-	update_legend();
+	update_chart();
 }
 
 function update_legend() {
@@ -78,7 +83,6 @@ function update_legend() {
 		total_runways = Object.values(all_runways).reduce(function(acc, curr) {return isNaN(curr) ? acc: acc + curr}, 0);
 		$('#statelist').html("Currently viewing " + total_runways + " runways in: <br/>" + stateList.join(", "));
 	}
-	draw_chart();
 }
 
 
@@ -117,26 +121,19 @@ function draw_chart() {
 	arc.exit().remove();
 	arc.on("mouseover",function(d,i){d3.select("#chart").append("text")
 		.text(function() {return "Runway " + d['key'] + ": " + d['value'];}).attr({id:"mouseover_box"})
-		.attr({"alignment-baseline":"text-before-edge"})
-		.attr({"fill":"black"})
-		.attr({"font-weight":"bold"})});
+		.attr({"alignment-baseline":"text-before-edge","fill":"black","font-weight":"bold"})});
 	arc.on("mouseout", function(d,i){d3.select("#mouseover_box").remove()});
 
 	range_circles.enter().append("circle")
-	.attr("cx",0)
-	.attr("cy",0)
-	.attr("r",function(d) {return dimension(d);})
-	.style("fill","none")
-	.attr("stroke","black");
+	.attr({cx:0,cy:0,r:function(d) {return dimension(d);},stroke:"black"})
+	.style("fill","none");
 	range_circles.exit().remove();
 	
 	range_labels.enter().append("text")
-	.attr("alignment-baseline","text-after-edge",)
-	.attr("fill","black")
-	.attr("font-weight","bold")
-	.attr("text-anchor","end")
-	.attr("x",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
-	.attr("y",function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)})
+	.attr({"alignment-baseline":"text-after-edge",fill:"black",
+	"font-weight":"bold","text-anchor":"end",
+	x:function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)},
+	y:function(d) {return -1 * Math.sin(3/4 * Math.PI)*dimension(d)}})
 	.text(function(d) {return d;});
 	
 	range_circles.exit().remove();
@@ -167,7 +164,7 @@ $(document).ready(function() {
 		.attr("id","arc_base");
 	svg.append("g").attr("transform","translate(" + width / 2 + "," + height / 2 + ")")
 		.attr("id","ring_base");
-	update_legend();
+	update_chart();
 });
 
 
